@@ -6,6 +6,7 @@ include('modles/ky_hoc.php');
 include('modles/ca_thi.php');
 include('modles/giang_vien.php');
 include('modles/gian_thi.php');
+include('modles/thong_ke.php');
 session_start();
 require_once "modles/user.php";
 
@@ -262,6 +263,11 @@ if (isset($_SESSION['idus']) && isset($_SESSION['quyen']) && $_SESSION['quyen'] 
                     $vl = getall();
                     include('views/giam_thi/admin/index.php');
                 }
+                break;
+            case 'thong_Ke':
+                $allTK = thong_ke_all();
+
+                include('views/thongKe/thongke.php');
                 break;
             case 'dang_xuat':
                 unset($_SESSION['idus']);

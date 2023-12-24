@@ -28,6 +28,7 @@
                     <li><a href="index.php?act=ky_hoc">kỳ học</a></li>
                     <li><a href="index.php?act=giang_vien">giảng viên</a></li>
                     <li><a href="index.php?act=giam_thi">giảm thị</a></li>
+                    <li><a href="index.php?act=thong_Ke">Thống kê</a></li>
                     <li><a href="index.php?act=dang_xuat">Đăng xuất</a></li>
                 </ul>
             </nav>
