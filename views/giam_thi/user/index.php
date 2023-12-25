@@ -26,27 +26,32 @@
                         <td>
                             <?php
                             // Thời gian hiện tại
-                            $currentTime = time();
+                            $currentTime = new DateTime();
 
                             // Ngày thi
-                            $examDate = strtotime($vc['ngay_thi']);
-
+                            $examDate = new DateTime($vc['ngay_thi']);
                             // Nếu chưa đến ngày thi
-                            if ($currentTime < $examDate) {
+                            if ($currentTime->format('Y-m-d') < $examDate->format('Y-m-d')) {
                                 echo 'Chưa tới thời gian nhận đề';
-                            } else {
+                            } elseif ($currentTime->format('Y-m-d') == $examDate->format('Y-m-d')) {
+
                                 // Thời gian bắt đầu
-                                $startTime = strtotime($vc['ngay_thi'] . ' ' . $vc['thoi_gian_bat_dau']);
+                                $startTime = new DateTime($vc['ngay_thi'] . ' ' . $vc['thoi_gian_bat_dau']);
 
                                 // Thời gian kết thúc 15 phút trước thời gian bắt đầu
-                                $endTime = $startTime - (15 * 60);
+                                $endTime = $startTime->modify('+15 minutes');
+                                $startTime =  $startTime->modify('-30 minutes');
 
-                                // Kiểm tra nếu hiện tại là trong khoảng thời gian từ thời gian kết thúc 15 phút trước đến thời gian bắt đầu
-                                if ($currentTime >= $endTime && $currentTime <= $startTime) {
+                                // Nếu thời gian hiện tại nằm trong khoảng 15 phút trước thời gian bắt đầu
+                                if ($currentTime >= $startTime || $currentTime <= $endTime) {
                                     echo '<a href="' . $vc['de_thi'] . '" download>Nhận đề</a>';
-                                } else {
+                                } elseif ($currentTime > $endTime) {
                                     echo 'Quá thời gian nhận đề';
+                                } else {
+                                    echo 'Chưa tới thời gian nhận đề';
                                 }
+                            } else {
+                                echo 'Quá thời gian nhận đề';
                             }
                             ?>
                         </td>
